@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 //import registrace from "/zadani/registrace.png";
 
-const Registration = () => {{
+const Registration = () => {
   
     const [user, setUser] = useState({
         username: '',
@@ -11,17 +11,15 @@ const Registration = () => {{
         passwordConfirm: '',
       });
 
-     const fillForm = ({enter}) => {
-        console.log(enter);
-if (enter === "@") {
+     const fillForm = (e) => {
+        
+        console.log(e);
+if (user.email === "@") {
     setUser((user) => ({
-        ...user,  username: '',
-        email: '@',
-        password: '',
-        passwordConfirm: '',})
-   ) }
+        ...user,
+        email : e.target,
+    }))
 }
-
      }
 
 
@@ -43,7 +41,8 @@ if (enter === "@") {
               id="email"
               className="Form__input"
               placeholder="E-mail"
-              value={email}
+              value={user.email}
+              onChange = {(e) => fillForm(e)}
             />
           </div>
           <div className="Form__name">
@@ -53,7 +52,8 @@ if (enter === "@") {
               id="name"
               className="Form__input"
               placeholder="User name"
-              value={username}
+              value={user.username}
+              onChange = {(e) => fillForm(e)}
             />
           </div>
           <div className="Form__password">
@@ -63,7 +63,8 @@ if (enter === "@") {
               id="password"
               className="Form__input"
               placeholder="Password"
-              value={password}
+              value={user.password}
+              onChange = {(e) => fillForm(e)}
             />
           </div>
           <div className="Form__confirmation">
@@ -73,7 +74,8 @@ if (enter === "@") {
               id="confirmation"
               className="Form__input"
               placeholder="Confirm password"
-              value={passwordConfirm}
+              value={user.passwordConfirm}
+              onChange = {(e) => fillForm(e)}
             />
           </div>
           <div className="Form__button"><button>Create account</button></div>
