@@ -1,87 +1,171 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 //import registrace from "/zadani/registrace.png";
 
 const Registration = () => {
-  
-    const [user, setUser] = useState({
-        username: '',
-        email: '',
-        password: '',
-        passwordConfirm: '',
-      });
+  const [user, setUser] = useState({
+    username: "",
+    email: "",
+    alert: " ",
+    password: "",
+    passwordConfirm: "",
+  });
 
-     const fillForm = (e) => {
-        
-        console.log(e);
-if (user.email === "@") {
-    setUser((user) => ({
-        ...user,
-        email : e.target,
-    }))
-}
-     }
+  const validityCheck = () => {
+    const newName = user.email.split("@")[0];
+    const filledForm = {
+      username: user.username || newName,
+      email: user.email,
+      alert: user.alert,
+      password: user.password,
+      passwordConfirm: user.passwordConfirm,
+    };
 
+    const emailValidity = filledForm.email.includes("@");
 
-        
+    const checkEmailValidity = () => {
+      if (emailValidity === true) {
+        console.log("Valid email");
+      } else {
+        console.log("Invalid email adress");
+      }
+    };
 
+    const checkPasswordValidity = () => {
+      if (filledForm.password === filledForm.passwordConfirm) {
+        console.log("Password confirmed");
+      } else {
+        console.log("False password");
+      }
+    };
 
+    checkEmailValidity();
+    checkPasswordValidity();
+  };
 
-      
+  const newRegistration = (e) => {
+    setUser((prevState) => ({
+      username: "",
+      email: "",
+      alert: " ",
+      password: "",
+      passwordConfirm: "",
+    }));
+  };
+
+  validityCheck();
+
+  const fillEmail = ({ target }) => {
+    setUser((prevState) => ({
+      ...prevState,
+      email: target.value,
+    }));
+  };
+
+  const fillUserName = ({ target }) => {
+    setUser((prevState) => ({
+      ...prevState,
+      username: target.value,
+    }));
+  };
+
+  const fillPassword = ({ target }) => {
+    setUser((prevState) => ({
+      ...prevState,
+      password: target.value,
+    }));
+  };
+
+  const fillPasswordConfirm = ({ target }) => {
+    setUser((prevState) => ({
+      ...prevState,
+      passwordConfirm: target.value,
+    }));
+  };
+
+  const inputRefEmail = useRef(null);
+  const inputRefUserName = useRef(null);
+  const inputRefPassword = useRef(null);
+  const inputRefPasswordConfirm = useRef(null);
+
+  const submitData = (event) => {
+    console.log(
+      "email: " +
+        " " +
+        inputRefEmail.current.value +
+        ", " +
+        "username: " +
+        " " +
+        inputRefUserName.current.value +
+        ", " +
+        "password: " +
+        " " +
+        inputRefPassword.current.value +
+        ", " +
+        "passwordConfirm: " +
+        " " +
+        inputRefPasswordConfirm.current.value
+    );
+    event.preventDefault();
+  };
 
   return (
     <div className="Box">
       <div className="Form">
-        <div className="Form__title"></div>
-        <div className="Form__body">
-          <div className="Form__img"></div>
+        <form onSubmit={newRegistration}>
+          <div className="Form__title"></div>
+          <div className="Form__body">
+            <div className="Form__img"></div>
             <label className="Form_label"></label>
             <input
+              ref={inputRefEmail}
               type="text"
               id="email"
               className="Form__input"
               placeholder="E-mail"
               value={user.email}
-              onChange = {(e) => fillForm(e)}
+              onChange={fillEmail}
             />
-          </div>
-          <div className="Form__name">
+
             <label className="Form_label"></label>
             <input
+              ref={inputRefUserName}
               type="text"
               id="name"
               className="Form__input"
               placeholder="User name"
               value={user.username}
-              onChange = {(e) => fillForm(e)}
+              onChange={fillUserName}
             />
-          </div>
-          <div className="Form__password">
+
             <label className="Form_label"></label>
             <input
+              ref={inputRefPassword}
               type="text"
               id="password"
               className="Form__input"
               placeholder="Password"
               value={user.password}
-              onChange = {(e) => fillForm(e)}
+              onChange={fillPassword}
             />
-          </div>
-          <div className="Form__confirmation">
+
             <label className="Form_label"></label>
             <input
+              ref={inputRefPasswordConfirm}
               type="text"
               id="confirmation"
               className="Form__input"
               placeholder="Confirm password"
               value={user.passwordConfirm}
-              onChange = {(e) => fillForm(e)}
+              onChange={fillPasswordConfirm}
             />
           </div>
-          <div className="Form__button"><button>Create account</button></div>
-        </div>
+          <div className="Form__button">
+            <button onClick={submitData}>Create account</button>
+          </div>
+        </form>
       </div>
-   
+    </div>
   );
 };
 
