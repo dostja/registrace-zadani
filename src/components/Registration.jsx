@@ -20,7 +20,7 @@ const Registration = () => {
       password: user.password,
       passwordConfirm: user.passwordConfirm,
     };
-
+    console.log(newName);
     const emailValidity = filledForm.email.includes("@");
 
     const checkEmailValidity = () => {
@@ -43,14 +43,17 @@ const Registration = () => {
     checkPasswordValidity();
   };
 
-  const newRegistration = (e) => {
+  const newRegistration = (event) => {
+    event.preventDefault();
     setUser((prevState) => ({
+      ...prevState,
       username: "",
       email: "",
       alert: " ",
       password: "",
       passwordConfirm: "",
     }));
+    //prevState.preventDefault();
   };
 
   validityCheck();
