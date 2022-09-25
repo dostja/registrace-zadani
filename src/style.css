@@ -6,12 +6,18 @@
 
 html {
   font-family: 'Open Sans', sans-serif;
+  background-color: #B9C6B9;
 }
 
 .container {
   max-width: 26rem;
   margin-right: auto;
   margin-left: auto;
+  background-color: #F8FBF9;
+  padding: 48px;
+  border-radius: 8px;
+
+  
 }
 
 header {
@@ -23,9 +29,20 @@ header {
 
 .logo {
   width: 10rem;
-  height: 10rem;
-  background-image: url(./img/rocket.svg);
-  background-size: contain;
+  height: 12rem;
+  background-image: url(./img/man.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  width: 100%;
+  
 }
 
+.title{
+    color: #002A31;
+    font-size: 24px;
+   
+    }
 
+.subtitle{
+    color: #2f2f2f;
+    font-size: 14px} 
